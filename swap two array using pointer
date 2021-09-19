@@ -1,0 +1,55 @@
+#include <stdio.h>
+#include <stdlib.h>
+int *ptr,*ptr2;
+int element1,element2,temp;
+void input(int*,int);
+void swap(int*,int*);
+void output(int*,int);
+int main()
+    {
+        printf("Enter the number of elements of 1st array: ");
+        scanf("%d",&element1);
+        ptr=(int*)(malloc(element1*sizeof(int)));
+        printf("Enter The elements of the 1st array:\n");
+        input(ptr,element1);
+        printf("Enter the number of elements of 2nd array: ");
+        scanf("%d",&element2);
+        ptr2=(int*)(malloc(element2*sizeof(int)));
+        printf("Enter The elements of the 2nd array:\n");
+        input(ptr2,element2);
+        swap(ptr,ptr2);
+        free(ptr);
+        free(ptr2);
+        return 0;
+    }
+void input(int *ptr,int element){
+for(int i=0;i<element;i++){
+        scanf("%d",(ptr+i));
+}
+}
+void swap(int *ptr1,int *ptr2){
+if(element1>element2){
+    for(int i=0;i<element1;i++){
+        temp=*(ptr1+i);
+        *(ptr1+i)=*(ptr2+i);
+        *(ptr2+i)=temp;
+    }
+}
+else{
+        for(int i=0;i<element2;i++){
+        temp=*(ptr1+i);
+        *(ptr1+i)=*(ptr2+i);
+        *(ptr2+i)=temp;
+    }
+}
+printf("First Array:\n");
+output(ptr1,element2);
+printf("\n Second Array:\n");
+output(ptr2,element1);
+}
+
+void output(int* ptr,int element){
+for(int i=0;i<element;i++){
+        printf("%d ",*(ptr+i));
+}
+}
