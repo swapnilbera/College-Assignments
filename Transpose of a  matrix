@@ -1,0 +1,48 @@
+#include <stdio.h>
+#include <stdlib.h>
+void input(int*);
+void output(int*);
+void transpose(int*);
+int row,col;
+int *ptr1,*ptr2;
+int main()
+{
+   printf("Enter row no.: ");
+   scanf("%d",&row);
+   printf("Enter column no.: ");
+   scanf("%d",&col);
+   ptr1=(int*) malloc((row*col)*sizeof(int));
+   printf("Enter the element of  matrix:\n");
+   input(ptr1);
+   transpose(ptr1);
+   free(ptr1);
+
+    return 0;
+}
+void transpose(int *ptr1){
+  ptr2=(int*) malloc((row*col)*sizeof(int));
+  for(int i=0;i<row;i++){
+    for(int j=0;j<col;j++){
+       *(ptr2+(i*col)+j)=*(ptr1+(i)+(j*col));
+    }
+}
+printf("The Transpose of the the matrix is:\n");
+output(ptr2);
+free(ptr2);
+}
+
+void input(int *ptr){
+for(int i=0;i<row;i++){
+    for(int j=0;j<col;j++){
+        scanf("%d",(ptr+(i*col)+j));
+    }
+}
+}
+void output(int* ptr){
+for(int i=0;i<row;i++){
+    for(int j=0;j<col;j++){
+        printf("%d ",*(ptr+(i*col)+j));
+    }
+    printf("\n");
+}
+}
