@@ -1,0 +1,53 @@
+#include <stdio.h>
+#include <stdlib.h>
+void input(int*);
+void output(int*);
+void mult(int*,int*);
+int row,col;
+int *ptr1,*ptr2,*ptr3;
+int main()
+{
+   printf("Enter row no.: ");
+   scanf("%d",&row);
+   printf("Enter column no.: ");
+   scanf("%d",&col);
+   ptr1=(int*) malloc((row*col)*sizeof(int));
+   ptr2=(int*) malloc((row*col)*sizeof(int));
+   printf("Enter the element of first matrix:\n");
+   input(ptr1);
+   printf("Enter the element of second matrix:\n");
+   input(ptr2);
+   mult(ptr1,ptr2);
+   free(ptr1);
+   free(ptr2);
+
+    return 0;
+}
+void mult(int *ptr1,int *ptr2){
+  ptr3=(int*) malloc((row*col)*sizeof(int));
+  for(int i=0;i<row;i++){
+    for(int j=0;j<col;j++){
+       *(ptr3+(i*col)+j)=(*(ptr1+(i*col)+j))*(*(ptr2+(i*col)+j));
+    }
+}
+printf("The multiplication of the two matrix is:\n");
+output(ptr3);
+free(ptr3);
+}
+
+void input(int *ptr){
+for(int i=0;i<row;i++){
+    for(int j=0;j<col;j++){
+        scanf("%d",(ptr+(i*col)+j));
+    }
+}
+}
+void output(int* ptr){
+for(int i=0;i<row;i++){
+    for(int j=0;j<col;j++){
+        printf("%d ",*(ptr+(i*col)+j));
+    }
+    printf("\n");
+}
+}
+
