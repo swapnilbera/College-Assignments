@@ -1,0 +1,54 @@
+#include <stdio.h>
+#include <stdlib.h>
+void input(int*);
+void smallest(int*);
+void largest(int*);
+int row,col;
+int *ptr1;
+int main()
+{
+   printf("Enter row no.: ");
+   scanf("%d",&row);
+   printf("Enter column no.: ");
+   scanf("%d",&col);
+   ptr1=(int*) malloc((row*col)*sizeof(int));
+   printf("Enter the element of  matrix:\n");
+   input(ptr1);
+   smallest(ptr1);
+   largest(ptr1);
+   free(ptr1);
+
+    return 0;
+}
+void smallest(int *ptr1){
+    int small=*(ptr1+0+0);
+for(int i=0;i<row;i++){
+    for(int j=0;j<col;j++){
+       if(small>*(ptr1+(i*col)+j)){
+        small=*(ptr1+(i*col)+j);
+       }
+    }
+}
+printf("Smallest no of the matrix is: %d",small);
+}
+void largest(int *ptr1){
+    int large=*(ptr1+0+0);
+for(int i=0;i<row;i++){
+    for(int j=0;j<col;j++){
+       if(large<*(ptr1+(i*col)+j)){
+        large=*(ptr1+(i*col)+j);
+       }
+    }
+}
+printf("\n largest no of the matrix is: %d",large);
+}
+
+
+void input(int *ptr){
+for(int i=0;i<row;i++){
+    for(int j=0;j<col;j++){
+        scanf("%d",(ptr+(i*col)+j));
+    }
+}
+}
+
