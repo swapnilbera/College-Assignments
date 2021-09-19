@@ -1,0 +1,43 @@
+#include <stdio.h>
+#include <stdlib.h>
+void input(int*);
+void sum(int*);
+int row,col;
+int *ptr1,*ptr2;
+int main()
+{
+   printf("Enter row no.: ");
+   scanf("%d",&row);
+   printf("Enter column no.: ");
+   scanf("%d",&col);
+   ptr1=(int*) malloc((row*col)*sizeof(int));
+   printf("Enter the element of  matrix:\n");
+   input(ptr1);
+   sum(ptr1);
+   free(ptr1);
+
+    return 0;
+}
+void sum(int *ptr1)
+    {
+        for(int i=0;i<row;i++)
+        {
+            int sum_row=0;
+            int sum_col=0;
+            for(int j=0;j<col;j++)
+            {
+                sum_row+=*(ptr1+(i*col)+j);
+                sum_col+=*(ptr1+(j*col)+i);
+            }
+         printf("The sum of the numbers of row %d: %d\n",i+1,sum_row);
+         printf("The sum of the numbers of column %d: %d\n",i+1,sum_col);
+        }
+    }
+void input(int *ptr){
+for(int i=0;i<row;i++){
+    for(int j=0;j<col;j++){
+        scanf("%d",(ptr+(i*col)+j));
+    }
+}
+}
+
