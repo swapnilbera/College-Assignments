@@ -1,0 +1,28 @@
+#include <stdio.h>
+#include <stdlib.h>
+int *ptr;
+int element;
+void input(int*);
+void output(int*);
+int main()
+    {
+        printf("Enter the number of elements: ");
+        scanf("%d",&element);
+        ptr=(int*)(malloc(element*sizeof(int)));
+        printf("Enter The elements of the array:\n");
+        input(ptr);
+        printf("Array:\n");
+        output(ptr);
+        free(ptr);
+        return 0;
+    }
+void input(int *ptr){
+for(int i=0;i<element;i++){
+        scanf("%d",(ptr+i));
+}
+}
+void output(int* ptr){
+for(int i=0;i<element;i++){
+        printf("%d ",*(ptr+i));
+}
+}
