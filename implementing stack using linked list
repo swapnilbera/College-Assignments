@@ -1,0 +1,96 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+
+typedef struct node{
+    int data;
+    struct node *next;
+}list;
+
+list *top=NULL;
+
+int isempty(list *top){
+    if(top==0)
+        return 1;
+    else
+        return 0;
+}
+int isfull(list *top){
+    list* p=(list*)malloc(sizeof(list));
+    if(p==NULL)
+        return 1;
+    else
+        return 0;
+}
+
+void display(list *ptr){
+    if(ptr==0)
+        printf("Stack is empty");
+    else{
+        while(ptr!= 0){
+            printf("Element is:%d\n",ptr->data);
+            ptr=ptr->next;
+        }
+    }
+}
+void push(){
+    int x;
+    if(isfull(top)){
+        printf("Stack overflowed");
+    }
+    else{
+            printf("enter data:");
+            scanf("%d",&x);
+            list* n=(list*) malloc(sizeof(list));
+            n->data=x;
+            n->next=top;
+            top=n;
+
+    }
+}
+void pop(){
+    if(isempty(top)){
+        printf("Stack is empty");
+    }
+    else{
+        printf("popped element is:%d",top->data);
+        list *n=top;
+        top=top->next;
+        free(n);
+    }
+}
+
+void peek(){
+    if(top==0){
+        printf("stack is empty");
+    }
+    else
+        printf("%d",top->data);
+}
+int main()
+{
+    int choice;
+    do{
+        printf(" Enter 1 for push\n Enter 2 for pop\n Enter 3 for peek\n Enter 4 for display\n ");
+        scanf("%d",&choice);
+        switch(choice){
+        case 1:
+            push();
+            break;
+        case 2:
+            pop();
+            break;
+        case 3:
+            peek();
+            break;
+        case 4:
+            display(top);
+            break;
+        default:
+            printf("Wrong choice\n");
+        }
+
+    }while(choice!=0);
+
+    return 0;
+}
