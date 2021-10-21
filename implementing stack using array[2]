@@ -1,0 +1,82 @@
+#include <stdio.h>
+#include <stdlib.h>
+typedef struct node{
+int size;
+int top;
+int *arr;
+}stack;
+int isEmpty(stack *ptr){
+if(ptr->top==-1)
+    return 1;
+else
+    return 0;
+}
+int isFull(stack *ptr){
+if(ptr->top==ptr->size-1){
+    return 1;
+}
+else
+    return 0;
+}
+void push(stack *ptr){
+if(isFull(ptr)){
+    printf("Stack overflow!");
+}
+else{
+        int value;
+printf("Enter data:");
+scanf("%d",&value);
+    ptr->top++;
+    ptr->arr[ptr->top]=value;
+}
+}
+void pop(stack *ptr){
+if(isEmpty(ptr)){
+    printf("Stack underflow");
+}
+else{
+    printf("popped value is :%d",ptr->arr[ptr->top]);
+    ptr->top--;
+
+}
+
+}
+void display(stack *ptr){
+for(int i=ptr->top;i>=0;i--){
+    printf("%d\n",ptr->arr[i]);
+}
+}
+void peek(stack *ptr){
+printf("top most element is:%d\n",ptr->arr[ptr->top]);
+}
+int main()
+{
+        int siz,choice;
+    printf("Enter the size of your stack:");
+    scanf("%d",&siz);
+    stack *s;
+    s->size=siz;
+    s->top=-1;
+    s->arr=(int*)malloc(s->size*sizeof(int));
+    do{
+        printf("Enter 1 for push\n Enter 2 for pop\n Enter 3 for peek\n Enter 4 for display\n ");
+        scanf("%d",&choice);
+        switch(choice){
+    case 1:
+        push(s);
+        break;
+    case 2:
+        pop(s);
+        break;
+    case 3:
+        peek(s);
+        break;
+    case 4:
+        display(s);
+        break;
+    default:
+        printf("Wrong choice\n");
+        }
+    }while(choice!=0);
+    return 0;
+}
