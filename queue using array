@@ -50,7 +50,7 @@ int main()
     s->r=-1;
     s->arr=(int*)malloc(s->size*sizeof(int));
     do{
-        printf("Enter 1 for enqueue\n Enter 2 for dequeue\n Enter 3 for peek\n Enter 4 for display\n ");
+        printf("Enter 1 for enqueue\n Enter 2 for dequeue\n  ");
         scanf("%d",&choice);
         switch(choice){
     case 1:
