@@ -1,0 +1,68 @@
+#include <stdio.h>
+#include <stdlib.h>
+typedef struct queue_struc{
+int size;
+int f;
+int r;
+int *arr;
+}queue;
+void enqueue(queue *ptr){
+if(isFull(ptr)){
+    printf("Queue is full");
+}
+else{
+    int x;
+    printf("Enter data:");
+    scanf("%d",&x);
+    ptr->r++;
+    ptr->arr[ptr->r]=x;
+}
+}
+void deque(queue *ptr){
+if(isEmpty(ptr)){
+    printf("Queue is empty");
+}
+else{
+    ptr->f++;
+    printf("Dequeued element is:%d",ptr->arr[ptr->f]);
+}
+}
+int isEmpty(queue *ptr){
+if(ptr->f==ptr->r)
+    return 1;
+else
+    return 0;
+}
+int isFull(queue *ptr){
+if(ptr->r==ptr->size-1)
+    return 1;
+else
+    return 0;
+}
+int main()
+{
+    int siz,choice;
+    printf("Enter the size of your queue:");
+    scanf("%d",&siz);
+    queue *s;
+    s->size=siz;
+    s->f=-1;
+    s->r=-1;
+    s->arr=(int*)malloc(s->size*sizeof(int));
+    do{
+        printf("Enter 1 for enqueue\n Enter 2 for dequeue\n Enter 3 for peek\n Enter 4 for display\n ");
+        scanf("%d",&choice);
+        switch(choice){
+    case 1:
+        enqueue(s);
+        break;
+    case 2:
+        deque(s);
+        break;
+    default:
+        printf("Wrong choice\n");
+        }
+    }while(choice!=0);
+
+    return 0;
+}
