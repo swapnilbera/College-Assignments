@@ -1,0 +1,81 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+struct Node *f = NULL;
+struct Node *r = NULL;
+
+struct Node
+{
+    int data;
+    struct Node *next;
+};
+
+void display(struct Node *ptr)
+{
+    printf("Printing the elements of this queue\n");
+    while (ptr != NULL)
+    {
+        printf("Element: %d\n", ptr->data);
+        ptr = ptr->next;
+    }
+}
+
+void enqueue()
+{
+    struct Node *n = (struct Node *) malloc(sizeof(struct Node));
+    if(n==NULL){
+        printf("Queue is Full");
+    }
+    else{
+        int val;
+        printf("Enter Data:");
+        scanf("%d",&val);
+        n->data = val;
+        n->next = NULL;
+        if(f==NULL){
+            f=r=n;
+        }
+        else{
+            r->next = n;
+            r=n;
+        }
+    }
+}
+
+void dequeue()
+{
+    struct Node *ptr = f;
+    if(f==NULL){
+        printf("Queue is Empty\n");
+    }
+    else{
+        f = f->next;
+        printf("Dequeued value is:%d",ptr->data);
+        free(ptr);
+    }
+
+}
+
+int main()
+{
+   int choice;
+    do{
+        printf(" Enter 1 for enqueue\n Enter 2 for dequeue\n Enter 3 for display\n ");
+        scanf("%d",&choice);
+        switch(choice){
+        case 1:
+            enqueue();
+            break;
+        case 2:
+            dequeue();
+            break;
+        case 3:
+            display(f);
+            break;
+        default:
+            printf("Wrong choice\n");
+        }
+
+    }while(choice!=0);
+    return 0;
+}
