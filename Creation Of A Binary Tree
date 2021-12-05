@@ -22,10 +22,10 @@ return n;
 int main()
 {
    struct node *root=create_node(5);
-   struct node *right=create_node(4);
-   struct node *left=create_node(3);
-   root->left=left;
-   root->right=right;
+   struct node *ri=create_node(4);
+   struct node *l=create_node(3);
+   root->left=l;
+   root->right=r;
 
     return 0;
 }
