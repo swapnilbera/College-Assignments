@@ -1,0 +1,72 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+struct node{
+int data;
+struct node *left;
+struct node *right;
+};
+struct node* create_node(int key){
+struct node *n;
+n=(struct node*) malloc(sizeof(struct node));\
+n->data=key;
+n->left=NULL;
+n->right=NULL;
+
+return n;
+}
+void preorder_traversal(struct node *root){
+if(root!=NULL){
+    printf("%d ",root->data);
+    preorder_traversal(root->left);
+    preorder_traversal(root->right);
+}
+}
+void postorder_traversal(struct node *root){
+if(root!=NULL){
+    postorder_traversal(root->left);
+    postorder_traversal(root->right);
+    printf("%d ",root->data);
+}
+}
+void inorder_traversal(struct node *root){
+if(root!=NULL){
+    inorder_traversal(root->left);
+    printf("%d ",root->data);
+    inorder_traversal(root->right);
+}
+}
+
+/*    5
+    /   \
+    3    4
+   / \   / \
+   1  2  8  9
+*/
+int main()
+{
+   struct node *root=create_node(5);
+   struct node *r=create_node(4);
+   struct node *l=create_node(3);
+   struct node *rr=create_node(9);
+   struct node *rl=create_node(8);
+   struct node *ll=create_node(1);
+   struct node *lr=create_node(2);
+   root->left=l;
+   root->right=r;
+   l->left=ll;
+   l->right=lr;
+   r->right=rr;
+   r->left=rl;
+   printf("The Pre-Order Traversal is- \n");
+   preorder_traversal(root);
+   printf("\nThe Post-Order Traversal is- \n");
+   postorder_traversal(root);
+   printf("\nThe In-Order Traversal is- \n");
+   inorder_traversal(root);
+
+
+
+
+    return 0;
+}
