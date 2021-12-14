@@ -1,0 +1,225 @@
+#include <stdio.h>
+#include <stdlib.h>
+print_array(int *array,int size){
+printf("The element of the array is :\n");
+for(int i=0;i<size;i++){
+    printf("%d ",array[i]);
+}
+printf("\n");
+}
+swap(int *x,int *y){
+
+int temp=*x;
+*x=*y;
+*y=temp;
+}
+
+void bubble_sort(int array[],int size){
+     int swapped;
+for(int i=0;i<size-1;i++){
+     swapped=0;
+    for(int j=1;j<size-i;j++){
+        if(array[j]<array[j-1]){
+            swap(&array[j],&array[j-1]);
+            swapped=1;
+        }
+    }
+    if(!swapped)
+        break;
+    }
+    print_array(array,size);
+}
+void selection_sort(int array[],int size){
+for(int i=0;i<size;i++){
+    int last=size-i-1;
+    int max=getMax(array,0,last);
+    swap(&array[max],&array[last]);
+}
+print_array(array,size);
+}
+int getMax(int array[],int x,int y){
+int max=x;
+for(int i=x;i<=y;i++){
+    if(array[max]<array[i]){
+        max=i;
+    }
+}
+return max;
+}
+void insertion_sort(int arr[],int size){
+for(int i=0;i<size-1;i++){
+    for(int j=i+1;j>0;j--){
+        if(arr[j]<arr[j-1]){
+            swap(arr[j],arr[j-1]);
+        }
+        else
+            break;
+
+    }
+}
+print_array(arr,size);
+}
+void merge(int A[], int mid, int low, int high)
+{
+    int i, j, k, B[100];
+    i = low;
+    j = mid + 1;
+    k = low;
+
+    while (i <= mid && j <= high)
+    {
+        if (A[i] < A[j])
+        {
+            B[k] = A[i];
+            i++;
+            k++;
+        }
+        else
+        {
+            B[k] = A[j];
+            j++;
+            k++;
+        }
+    }
+    while (i <= mid)
+    {
+        B[k] = A[i];
+        k++;
+        i++;
+    }
+    while (j <= high)
+    {
+        B[k] = A[j];
+        k++;
+        j++;
+    }
+    for (int i = low; i <= high; i++)
+    {
+        A[i] = B[i];
+    }
+
+}
+void mergeSort(int A[], int low, int high){
+    int mid;
+    if(low<high){
+        mid = (low + high) /2;
+        mergeSort(A, low, mid);
+        mergeSort(A, mid+1, high);
+        merge(A, mid, low, high);
+    }
+}
+int partition(int A[], int low, int high)
+{
+    int pivot = A[low];
+    int i = low + 1;
+    int j = high;
+    int temp;
+
+    do
+    {
+        while (A[i] <= pivot)
+        {
+            i++;
+        }
+
+        while (A[j] > pivot)
+        {
+            j--;
+        }
+
+        if (i < j)
+        {
+            temp = A[i];
+            A[i] = A[j];
+            A[j] = temp;
+        }
+    } while (i < j);
+
+    // Swap A[low] and A[j]
+    temp = A[low];
+    A[low] = A[j];
+    A[j] = temp;
+    return j;
+}
+void quickSort(int A[], int low, int high)
+{
+    int partitionIndex;
+
+    if (low < high)
+    {
+        partitionIndex = partition(A, low, high);
+        quickSort(A, low, partitionIndex - 1);
+        quickSort(A, partitionIndex + 1, high);
+    }
+}
+ void heapify(int arr[], int n, int i) {
+    int largest = i;
+    int left = 2 * i + 1;
+    int right = 2 * i + 2;
+
+    if (left < n && arr[left] > arr[largest])
+      largest = left;
+
+    if (right < n && arr[right] > arr[largest])
+      largest = right;
+
+    if (largest != i) {
+      swap(&arr[i], &arr[largest]);
+      heapify(arr, n, largest);
+    }
+  }
+   void heapSort(int arr[], int n) {
+    for (int i = n / 2 - 1; i >= 0; i--)
+      heapify(arr, n, i);
+
+    for (int i = n - 1; i >= 0; i--) {
+      swap(&arr[0], &arr[i]);
+
+      heapify(arr, i, 0);
+    }
+  }
+int main()
+{
+    int n;
+    printf("Enter the no of element: ");
+    scanf("%d",&n);
+    int arr[n];
+    printf("Enter The element of the array is :\n");
+     for(int i=0;i<n;i++){
+    scanf("%d",&arr[i]);
+}
+    int ch;
+    do{
+        printf("Enter 1 for bubble sort\n 2 for Selection sort\n 3 for Insertion sort\n 4 for Merge sort\n 5 for Quick sort\n 6 for Heap sort\n");
+        scanf("%d",&ch);
+        switch(ch){
+    case 1:
+        bubble_sort(arr,n);
+        break;
+    case 2:
+        selection_sort(arr,n);
+        break;
+    case 3:
+        insertion_sort(arr,n);
+        break;
+    case 4:{
+        mergeSort(arr,0,n+1);
+        print_array(arr,n);
+    }
+        break;
+    case 5:{
+        quickSort(arr,0,n-1);
+        print_array(arr,n);
+        break;
+    }
+    case 6:{
+    heapSort(arr,n);
+    print_array(arr,n);
+    break;
+    }
+    default:
+        printf("Wrong choice...");
+        }
+    }while(ch!=0);
+    return 0;
+}
