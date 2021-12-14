@@ -1,0 +1,253 @@
+#include<stdio.h>
+#include<stdlib.h>
+struct node
+{
+	int data;
+	struct node *link;
+};
+struct node *start=NULL;
+
+void insertAtBegin(int item)
+{
+	struct node* temp=(struct node*)malloc(sizeof(struct node));
+	if(temp==NULL)
+	{
+		printf("Insufficient memory");
+	}
+	else
+	{
+		temp->data = item;
+		temp->link = start;
+		start = temp;
+	}
+}
+void insertAtEnd(int item)
+{
+	struct node *temp=(struct node *)malloc(sizeof(struct node));
+	struct node * ptr;
+	temp->data=item;
+	temp->link=NULL;
+	if(start==NULL)
+	{
+		start=temp;
+	}
+	else
+	{
+		ptr=start;
+	}
+	while( ptr->link != NULL)
+	{
+		ptr=ptr->link;
+	}
+	ptr->link=temp;
+}
+void insertAtAnyPosition(int item,int pos)
+{
+	struct node * ptr;
+	int i,data;
+	//struct node *temp=(struct node *)malloc(sizeof(struct node ));
+	struct node *temp=(struct node *)malloc(sizeof(struct node));
+	if(temp==NULL)
+	{
+		printf("Insufficient memory");
+	}
+	else
+	{
+		temp->data=item;
+		if(pos==1)
+		{
+			temp->link=start;
+			start=temp;
+		}
+		else
+		{
+			ptr=start;
+			for(i=1;i<=pos-2 && ptr!=NULL;i++)
+			{
+				ptr=ptr->link;
+			}
+			if(ptr==NULL)
+			{
+				printf("Invalid position\n");
+				free(temp);
+				return;
+			}
+			temp->link=ptr->link;
+			ptr->link=temp;
+		}
+	}
+}
+void display()
+{
+	struct node * ptr;
+	if(start==NULL)
+	{
+		printf("Empty linked List");
+	}
+	else
+	{
+		printf("Start\t");
+		ptr=start;
+		while(ptr!=NULL)
+		{
+			printf("%d\t", ptr->data);
+			ptr=ptr->link;
+		}
+		printf("NULL\n");
+	}
+}
+void deletionAtBegin()
+{
+	struct node * ptr;
+	if(start==NULL)
+	{
+		printf("Deletion Not Possible");
+	}
+	else
+	{
+		ptr=start;
+		start=start->link;
+		free(ptr);
+	}
+}
+void deletionAtEnd()
+{
+	struct node * ptr,*pp;
+	//struct node * pp;
+	if(start==NULL)
+	{
+		printf("Deletion not possible");
+	}
+	else
+	{
+		ptr=start;
+		if(ptr->link==NULL)
+		{
+			start=NULL;
+		}
+		else
+		{
+			while(ptr->link!=NULL)
+			{
+				pp=ptr;
+				ptr=ptr->link;
+			}
+			pp->link=NULL;
+		}
+		free(ptr);
+	}
+}
+void deletionAtAny(pos)
+{
+	int i;
+	struct node * ptr;
+	struct node *pp;
+	if(start==NULL)
+	{
+		printf("Deletion not possible");
+	}
+	else
+	{
+		ptr=start;
+		if(pos==1)
+		{
+			start=start->link;
+		}
+		else
+		{
+			for(i=1;i<=pos-1;i++)
+			{
+				pp=ptr;
+				ptr=ptr->link;
+				if(ptr==NULL)
+				{
+					printf("Invalid position\n");
+					return;
+				}
+			}
+			pp->link=ptr->link;
+		}
+		free(ptr)	;
+	}
+}
+void reverse()
+{
+	struct node * next,* current,*previous;
+	if((start==NULL)||(start->link==NULL))
+	{
+		printf("Reverse is not possible\n");
+	}
+	else
+	{
+		current=start;
+		previous=NULL;
+		while(current!=NULL)
+		{
+			next=current->link;
+			current->link=previous;
+			previous=current;
+			current=next;
+		}
+		start=previous;
+	}
+}
+
+int main(void)
+{
+	int option, item,pos;
+	while(1)
+	{
+		printf("1.Insert at the begining \n2.Insert at End \n3.Insert at any position \n4.Display\n5.Deletion at the beginning \n6.Deletion at the end \n7.Deletion at any position \n8.Reverse \n9.exit\n\nPress your choice: \t");
+		scanf("%d",&option);
+		switch(option)
+		{
+			case 1:
+				printf("Enter the item:\t");
+				scanf("%d", &item);
+				insertAtBegin(item);
+				break;
+			case 2:
+				printf("Enter the item:\t");
+				scanf("%d", &item);
+				insertAtEnd(item);
+				break;
+			case 3:
+				printf("Enter the item :\t");
+				scanf("%d",&item);
+				printf("Enter the position:\t");
+				scanf("%d",&pos);
+				insertAtAnyPosition(item,pos);
+				break;
+
+			case 4:
+				display();
+				break;
+			case 5:
+			//	printf("Delete the item:\t");
+			//	scanf("%d",&item);
+				deletionAtBegin();
+				break;
+			case 6:
+				//printf("Delete the item:\t");
+				//scanf("%d",&item);
+				deletionAtEnd();
+				break;
+			case 7:
+				printf("Enter the position:\t");
+				scanf("%d",&pos);
+				deletionAtAny(pos);
+				break;
+			case 8:
+				reverse();
+				break;
+			case 9:
+				printf("Exit");
+				exit(0);
+
+			default:
+				printf("Wrong choice selected - Please enter 1, 2, 3, 4, 5, 6, 7, 8 or 9");
+		}
+	}
+	return 0;
+
+}
