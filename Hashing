@@ -1,0 +1,109 @@
+#include<stdio.h>
+#include<stdlib.h>
+#define SIZE 10
+struct node{
+    int key;
+    struct node* next;
+};
+struct node* array[SIZE]={NULL};
+void insert(int item){
+    int pos=item%SIZE;
+    struct node *it=(struct node*)malloc(sizeof(struct node));
+    struct node *last = array[pos];
+    it->key=item;
+    it->next=NULL;
+    if (array[pos] == NULL)
+    {
+       array[pos] = it;
+       return;
+    }
+    while (last->next != NULL)
+        last = last->next;
+    last->next = it;
+}
+void search(int item){
+    int pos=item%SIZE;
+    if (array[pos] == NULL){
+       printf("No element found\n");
+    return;
+    }
+    struct node *temp=array[pos];
+    while(temp!=NULL){
+        if(temp->key==item){
+        printf("Element found\n");
+        return;
+        }
+        temp=temp->next;
+    }
+    printf("Element not found\n");
+}
+void delete(int item){
+    int pos=item%SIZE;
+    struct node *temp=array[pos];
+    struct node *prev=NULL;
+    while(temp!=NULL){
+        if(temp->key==item){
+            if(prev==NULL){
+                array[pos]=temp->next;
+            }
+            else{
+                prev->next=temp->next;
+            }
+            free(temp);
+            printf("Item deleted\n");
+            return;
+        }
+        prev=temp;
+        temp=temp->next;
+    }
+    printf("Element not found\n");
+}
+void printList()
+{
+    for(int i=0;i<SIZE;i++){
+        struct node* temp=array[i];
+        printf("Array[%d] = ",i);
+        while(temp!=NULL){
+            printf("%d->",temp->key);
+            temp=temp->next;
+        }
+        printf("\n");
+    }
+}
+int main(){
+
+    printf("1.Insert\n2.Search\n3.Delete\n4.Display\n5.Exit");
+    int choice,item;
+    do
+    {
+        printf("\nEnter your choice: ");
+        scanf("%d",&choice);
+        switch(choice)
+        {
+            case 1:
+            printf("Enter the item : ");
+            scanf("%d",&item);
+            insert(item);
+            break;
+            case 2:
+            printf("Enter the item to be searched : ");
+            scanf("%d",&item);
+            search(item);
+            break;
+            case 3:
+            printf("Enter the item to be deleted : ");
+            scanf("%d",&item);
+            delete(item);
+            break;
+            case 4:
+            printList();
+            break;
+            case 5:
+            exit(0);
+            break;
+            default:
+            printf("\nPlease enter valid choice\n");
+        }
+    }while(choice != 5);
+    return 0;
+}
